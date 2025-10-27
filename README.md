@@ -131,5 +131,5 @@ npm run dev
 Open http://localhost:3000 in your browser. The frontend communicates with the backend at the URL configured in `frontend/.env.local` (use `NEXT_PUBLIC_API_URL`).
 
 
-[Demo video: Streaming CSV processor walkthrough](/home/bisrat/Videos/Screencasts/Screencast from 2025-10-27 16-18-12.webm)
+Demo video: https://drive.google.com/file/d/1YdtDTycFvahIep9IC2Bb2IykpIMQiLaW/view?usp=sharing
 
