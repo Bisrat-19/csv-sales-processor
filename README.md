@@ -79,7 +79,3 @@ Notes on headers: The parser attempts to detect header names (e.g., columns cont
 
 - If uploads appear to be missing: ensure `backend/uploads` exists and has write permissions.
 - If a download link fails, check `DOWNLOAD_SECRET` and expiry timestamp; the server validates both the token and expiry.
-
----
-
-If you want, I can also add a small `backend/README.md` that focuses only on developer details or create a `docs/` folder with expanded operational instructions (CI, deployment, and Redis migration steps).

@@ -32,6 +32,18 @@ const upload = multer({ storage });
 // In-memory job store for demo purposes.
 const jobs = new Map<string, JobStatus>();
 
+// Simple CORS middleware to allow the frontend dev server to talk to the
+// backend without an extra dependency. In production you may want to use
+// the `cors` package and restrict origins.
+app.use((req, res, next) => {
+  const origin = process.env.ALLOW_ORIGIN || '*';
+  res.setHeader('Access-Control-Allow-Origin', origin);
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, X-API-KEY');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  if (req.method === 'OPTIONS') return res.sendStatus(200);
+  next();
+});
+
 
 registerRoutes({ app, jobs, uploadDir: UPLOAD_DIR, outputDir: OUTPUT_DIR, uploadMiddleware: upload, requireApiKey, workerExecArgs: ['-r', 'ts-node/register'] });
 
