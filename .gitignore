@@ -1,0 +1,83 @@
+# Root .gitignore for csv-sales-processor (covers frontend and backend)
+
+# Node
+node_modules/
+**/node_modules/
+
+# Build / compiled output
+dist/
+build/
+.next/
+out/
+
+# Backend artifacts
+/backend/node_modules/
+/backend/dist/
+/backend/uploads/
+/backend/output/
+/backend/*.log
+/backend/.env
+/backend/*.tsbuildinfo
+
+# Frontend artifacts
+/frontend/node_modules/
+/frontend/.env
+/frontend/.next/
+/frontend/out/
+
+# Frontend caches
+/.cache/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# Coverage and test output
+coverage/
+
+# OS
+.DS_Store
+
+# Env files (keep local only)
+.env
+.env.*.local
+
+# Misc
+*.pem
+*.key
+# Node dependencies
+node_modules/
+**/node_modules/
+
+# Build output
+dist/
+build/
+.next/
+out/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Coverage / testing
+coverage/
+
+# IDE settings
+.vscode/
+.idea/
