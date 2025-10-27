@@ -1,3 +1,21 @@
+# CSV Sales Processor — Frontend 
+
+This repository includes a small Next.js frontend that provides a UI to upload CSVs, poll job status, and download processed results.
+
+Run the frontend locally:
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+Open http://localhost:3000 in your browser. The frontend communicates with the backend at the URL configured in `frontend/.env.local` (use `NEXT_PUBLIC_API_URL`).
+
+
+## Demo video: https://drive.google.com/file/d/1YdtDTycFvahIep9IC2Bb2IykpIMQiLaW/view?usp=sharing
+
+
 
 # CSV Sales Processor — Backend
 
@@ -115,21 +133,4 @@ Security notes: signed URLs are HMAC-SHA256 tokens computed over `${fileName}:${
 - Time complexity: O(N) where N is the number of rows in the input CSV. Each row is parsed once and its sales value is added to the department's running total.
 - Space complexity: O(D) where D is the number of distinct departments. Only one numeric accumulator per department is kept in memory; rows themselves are not stored.
 
-
-# Frontend (development)
-
-This repository includes a small Next.js frontend that provides a UI to upload CSVs, poll job status, and download processed results.
-
-Run the frontend locally:
-
-```bash
-cd frontend
-npm install
-npm run dev
-```
-
-Open http://localhost:3000 in your browser. The frontend communicates with the backend at the URL configured in `frontend/.env.local` (use `NEXT_PUBLIC_API_URL`).
-
-
-Demo video: https://drive.google.com/file/d/1YdtDTycFvahIep9IC2Bb2IykpIMQiLaW/view?usp=sharing
 
