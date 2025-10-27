@@ -27,8 +27,7 @@ export function createJobController(deps: ControllerDeps) {
     jobs.set(jobId, { status: 'queued' });
 
   // Spawn a worker thread to do the heavy lifting so the HTTP process
-  // remains responsive. In dev we use ts-node/register (via execArgv),
-  // but in production you'd point Worker at the compiled JS file.
+  // remains responsive.
   const workerPath = path.resolve(__dirname, '..', 'worker.ts');
   const worker = new Worker(workerPath, { workerData: { inputPath, outputDir }, execArgv: workerExecArgs || ['-r', 'ts-node/register'] });
 
@@ -59,8 +58,7 @@ export function createJobController(deps: ControllerDeps) {
     return res.json({ jobId, statusUrl });
   }
 
-  // Return current job state. This is intentionally lightweight; for
-  // production you may want to include timestamps, queue position, or logs.
+  // Return current job state
   function statusHandler(req: Request, res: Response) {
     const jobId = req.params.jobId;
     const job = jobs.get(jobId);
@@ -69,9 +67,7 @@ export function createJobController(deps: ControllerDeps) {
   }
 
   // Secure download handler. It first attempts to validate the signed token
-  // (expires + token). If no valid token is present, it falls back to checking
-  // the upload API key (useful for debugging or internal callers).
-  // In production you may prefer a stricter policy.
+  // (expires + token). If no valid token is present, it falls back to checking the upload API key 
   function downloadHandler(req: Request, res: Response) {
     const fileName = req.params.fileName;
 

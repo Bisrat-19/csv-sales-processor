@@ -3,7 +3,7 @@
 
 This repository contains a small Node.js + TypeScript backend that accepts large CSV uploads, aggregates total sales per department in a memory-efficient streaming manner, and produces an aggregated CSV for download.
 
-## How to run the app (development)
+## How to run the app 
 
 1. Install dependencies (from repository root):
 
@@ -116,7 +116,7 @@ Security notes: signed URLs are HMAC-SHA256 tokens computed over `${fileName}:${
 - Space complexity: O(D) where D is the number of distinct departments. Only one numeric accumulator per department is kept in memory; rows themselves are not stored.
 
 
-## Frontend (development)
+# Frontend (development)
 
 This repository includes a small Next.js frontend that provides a UI to upload CSVs, poll job status, and download processed results.
 

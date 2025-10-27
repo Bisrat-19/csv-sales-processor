@@ -10,8 +10,6 @@ import { requireApiKey } from './middleware/auth';
 const app = express();
 const PORT = process.env.PORT ? Number(process.env.PORT) : 4000;
 
-// Base directories for uploads and outputs. Using dedicated folders keeps
-// uploaded files and processed results separate and easy to manage.
 const BASE_DIR = path.resolve(__dirname, '..');
 const UPLOAD_DIR = path.join(BASE_DIR, 'uploads');
 const OUTPUT_DIR = path.join(BASE_DIR, 'output');
@@ -25,7 +23,6 @@ const storage = multer.diskStorage({
 });
 
 // Multer instance used to handle multipart/form-data uploads.
-// Files are streamed to disk (not kept in memory) to support very large uploads.
 const upload = multer({ storage });
 
 
@@ -33,8 +30,7 @@ const upload = multer({ storage });
 const jobs = new Map<string, JobStatus>();
 
 // Simple CORS middleware to allow the frontend dev server to talk to the
-// backend without an extra dependency. In production you may want to use
-// the `cors` package and restrict origins.
+// backend without an extra dependency.
 app.use((req, res, next) => {
   const origin = process.env.ALLOW_ORIGIN || '*';
   res.setHeader('Access-Control-Allow-Origin', origin);

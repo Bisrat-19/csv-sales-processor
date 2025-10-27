@@ -52,8 +52,6 @@ export async function aggregateFromStream(stream: Readable): Promise<Map<string,
           const prev = totals.get(dept) || 0;
           totals.set(dept, prev + sales);
         } catch (err) {
-          // Swallow row-level errors so a single bad row doesn't abort the whole file.
-          // In production, consider logging or recording malformed rows.
         }
       })
       .on('end', () => resolve(totals))

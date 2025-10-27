@@ -21,12 +21,10 @@ export function makeSignedDownloadUrl(fileName: string, expiresInSec = 300) {
   return `/download/${encodeURIComponent(fileName)}?expires=${expires}&token=${token}`;
 }
 
-// Validate the provided token and expiry. Returns true when no DOWNLOAD_SECRET
-// is configured (loose mode for dev). Uses timingSafeEqual to avoid leaking
-// HMAC comparisons via timing attacks.
+// Validate the provided token and expiry
 export function validateDownloadToken(fileName: string, token: string | undefined, expiresStr: string | undefined) {
   const DOWNLOAD_SECRET = getSecret();
-  if (!DOWNLOAD_SECRET) return true; // no secret configured => allow
+  if (!DOWNLOAD_SECRET) return false;
   if (!token || !expiresStr) return false;
   const expires = parseInt(expiresStr, 10);
   if (!expires || Math.floor(Date.now() / 1000) > expires) return false;
