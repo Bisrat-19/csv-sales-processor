@@ -10,8 +10,11 @@ npm install
 npm run dev
 ```
 
-Open http://localhost:3000 in your browser. The frontend communicates with the backend at the URL configured in `frontend/.env.local` (use `NEXT_PUBLIC_API_URL`).
-
+Open http://localhost:3000 in your browser. The frontend communicates with the backend at the URL configured in `frontend/.env.local` 
+```bash
+NEXT_PUBLIC_API_URL=http://localhost:4000
+NEXT_PUBLIC_UPLOAD_API_KEY=your-secret-api-key
+```
 
 ## Demo video: https://drive.google.com/file/d/1YdtDTycFvahIep9IC2Bb2IykpIMQiLaW/view?usp=sharing
 
@@ -36,7 +39,7 @@ npm install
 npm run dev
 ```
 
-The server listens on port 3000 by default. Environment variables can be set using a `.env` file in `backend/` (see below).
+The server listens on port 3000 by default. Environment variables can be set using a `.env.` file in `backend/` (see below).
 
 
 ## How to test
@@ -65,67 +68,6 @@ The backend processes CSV uploads using streaming parsing (the `csv-parser` pack
 - Only the aggregated totals per department are retained in memory (a Map keyed by department name). This keeps memory usage proportional to the number of distinct departments rather than the number of rows in the CSV.
 
 This approach allows processing of very large CSVs because rows are handled incrementally and discarded after aggregation.
-
-
-## API Endpoints (backend)
-
-All backend endpoints are mounted on the server started in `backend/` (default http://localhost:3000).
-
-- POST /upload
-	- Description: Accepts a CSV file upload and queues a background job to process it.
-	- Headers: `x-api-key: <UPLOAD_API_KEY>` (required if `UPLOAD_API_KEY` is set)
-	- Content-Type: multipart/form-data
-	- Form field: `file` — the CSV file to upload
-	- Example success response:
-
-```json
-{ "jobId": "c3f8b2a1-...", "statusUrl": "/status/c3f8b2a1-..." }
-```
-
-- GET /status/:jobId
-	- Description: Returns the current status of a processing job.
-	- Headers: `x-api-key: <UPLOAD_API_KEY>` (required if `UPLOAD_API_KEY` is set)
-	- Example responses:
-
-Queued / Processing:
-
-```json
-{ "status": "queued" }
-```
-
-```json
-{ "status": "processing" }
-```
-
-Done:
-
-```json
-{
-	"status": "done",
-	"fileName": "d6eea3ad-20f5-4147-8a0c-b819a682bf22.csv",
-	"metrics": { "processingTimeMs": 1234, "departmentCount": 12 },
-	"downloadUrl": "/download/d6eea3ad-20f5-4147-8a0c-b819a682bf22.csv?expires=1700000000&token=..."
-}
-```
-
-Failed:
-
-```json
-{ "status": "failed", "error": "parsing error on row 123" }
-```
-
-- GET /download/:fileName
-	- Description: Serves the processed CSV file. The endpoint validates a signed token (query params `expires` and `token`) if `DOWNLOAD_SECRET` is configured. If no token is provided, the endpoint will accept the `x-api-key` header as a fallback (useful for internal downloads).
-	- Example: `GET /download/d6eea3ad-20f5-4147-8a0c-b819a682bf22.csv?expires=1700000000&token=...`
-	- Successful response: returns the CSV file with `Content-Type: text/csv`. Example CSV content:
-
-```
-Department Name,Total Number of Sales
-Sales,130
-Boston,50
-```
-
-Security notes: signed URLs are HMAC-SHA256 tokens computed over `${fileName}:${expires}` using `DOWNLOAD_SECRET`. The server validates expiry and token integrity using a timing-safe compare.
 
 
 ## Estimated complexity
