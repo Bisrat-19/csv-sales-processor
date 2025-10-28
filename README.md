@@ -1,6 +1,6 @@
 # CSV Sales Processor — Frontend 
 
-This repository includes a small Next.js frontend that provides a UI to upload CSVs, poll job status, and download processed results.
+Next.js frontend that provides a UI to upload CSVs, poll job status, and download processed results.
 
 Run the frontend locally:
 
@@ -22,7 +22,7 @@ NEXT_PUBLIC_UPLOAD_API_KEY=your-secret-api-key
 
 # CSV Sales Processor — Backend
 
-This repository contains a small Node.js + TypeScript backend that accepts large CSV uploads, aggregates total sales per department in a memory-efficient streaming manner, and produces an aggregated CSV for download.
+Node.js + TypeScript backend that accepts large CSV uploads, aggregates total sales per department in a memory-efficient streaming manner, and produces an aggregated CSV for download.
 
 ## How to run the app 
 
@@ -55,7 +55,7 @@ npm test
 
 Create `backend/.env` with values like:
 
-- `UPLOAD_API_KEY` — API key to protect upload/status endpoints
+- `UPLOAD_API_KEY` — API key to protect upload/status endpoints, make sure matches with frontend UPLOAD API KEY
 - `DOWNLOAD_SECRET` — HMAC secret used to sign download URLs (recommended in prod)
 - `DOWNLOAD_EXPIRES_SEC` — number of seconds a signed URL is valid (default ~3600)
 
